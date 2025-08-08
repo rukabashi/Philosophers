@@ -6,7 +6,7 @@
 /*   By: rukabash <rukabash@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 18:08:15 by rukabash          #+#    #+#             */
-/*   Updated: 2025/06/30 18:09:29 by rukabash         ###   ########.fr       */
+/*   Updated: 2025/08/08 18:51:54 by rukabash         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-// 前方宣言
+// Forward declaration
 struct s_program;
 
 typedef struct s_philo
