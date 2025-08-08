@@ -6,7 +6,7 @@
 /*   By: rukabash <rukabash@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 18:08:19 by rukabash          #+#    #+#             */
-/*   Updated: 2025/08/08 18:55:09 by rukabash         ###   ########.fr       */
+/*   Updated: 2025/08/08 19:02:26 by rukabash         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	philo_eat(t_philo *philo)
 	t_program	*prog;
 
 	prog = philo->prog;
-	// To avoid deadlock, philosophers with even IDs pick up the right fork first,
-	// while odd IDs pick up the left fork first.
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
@@ -60,19 +58,12 @@ void	*philosopher_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	prog = philo->prog;
-	// *** FIX: Handle the case of a single philosopher. ***
-	// A single philosopher can only take one fork and will never be able to
-	// take a second one. This leads to a deadlock when trying to lock the
-	// same mutex twice. This special case avoids the deadlock.
-	// The philosopher will take the fork and wait until they die.
 	if (prog->num_of_philos == 1)
 	{
 		print_log(prog, philo->id, "has taken a fork");
 		precise_usleep(prog->time_to_die, prog);
 		return (NULL);
 	}
-	// To prevent all threads from starting at the exact same time,
-	// even-numbered philosophers wait for a moment.
 	if (philo->id % 2 == 0)
 		usleep(1000);
 	while (!is_simulation_over(prog))
